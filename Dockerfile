@@ -1,4 +1,4 @@
-FROM golang:1.8-stretch
+FROM debian:stretch
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'" https://github.com/pypa/pip/issues/4528
 ENV LOCALE=en_US.UTF-8 \
     SHELL=zsh \
