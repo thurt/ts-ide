@@ -4,6 +4,7 @@ ENV LOCALE=en_US.UTF-8 \
     SHELL=zsh \
     EDITOR=vim \
     DOCKER_VERSION=17.09.0-ce \
+    PROTOC_VERSION=3.4.0 \
     PYTHON_PIP_VERSION=9.0.1 \
     SCMPUFF_VERSION=0.2.1 \
     HUB_VERSION=2.2.9 \
@@ -45,6 +46,13 @@ RUN pip install \
 RUN gem install tmuxinator && \
     gem install travis && \
     gem cleanup
+
+#INSTALL protoc (protocol buffer compiler)
+RUN curl -L -o /usr/local/protoc.zip https://github.com/google/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-x86_64.zip && \
+    unzip /usr/local/protoc.zip -x readme.txt -d /usr/local && \
+    rm /usr/local/protoc.zip && \
+    chmod o+rx /usr/local/bin/protoc && \
+    chmod -R o+rX /usr/local/include/google/ 
 
 #INSTALL scmpuff (number aliases for git)
 RUN curl -L https://github.com/mroth/scmpuff/releases/download/v${SCMPUFF_VERSION}/scmpuff_${SCMPUFF_VERSION}_linux_amd64.tar.gz | \
