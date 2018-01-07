@@ -22,6 +22,7 @@ RUN apt-get update && \
     git \
     locales \
     openssl \
+    openssh-client \
     python-dev \
     python-pip \
     python-setuptools \
@@ -81,11 +82,16 @@ RUN groupadd -g 126 docker && \
 
 USER user 
 
-#INSTALL nvm (node version manager) 
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh | bash
+#ADD github to ssh known_hosts
+# also see this link for explanation of ip ranges i added in ssh-keyscan https://unix.stackexchange.com/a/164434/255117
+RUN echo 'FOR CROSS-VERIFICATION, PLEASE CHECK THAT THE SHA256 RSA HASH ON STDOUT MATCHES WITH https://help.github.com/articles/github-s-ssh-key-fingerprints/' && \
+    mkdir /home/user/.ssh && \
+    ssh-keyscan -t rsa github.com,192.30.252.*,192.30.253.*,192.30.254.*,192.30.255.* | tee -a /home/user/.ssh/known_hosts | ssh-keygen -lf -
 
+#INSTALL nvm (node version manager) 
 #INSTALL node (includes npm) and typescript server (TSServer)
-RUN . /home/user/.zshrc && \
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh | bash && \
+    . /home/user/.zshrc && \
     nvm install ${NODE_VERSION} && \
     npm install -g typescript && \
     npm install -g webpack
@@ -99,7 +105,7 @@ RUN mkdir -p ~/.vim/autoload ~/.vim/bundle && \
     git clone https://github.com/leafgarland/typescript-vim.git ~/.vim/bundle/typescript-vim
 
 RUN . /home/user/.zshrc && \ 
-    cd ~/.vim/bundle/YouCompleteMe && \
+    cd /home/user/.vim/bundle/YouCompleteMe && \
     git submodule update --init --recursive && \
     ./install.py --js-completer 
 
