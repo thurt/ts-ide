@@ -10,7 +10,8 @@ ENV LOCALE=en_US.UTF-8 \
     HUB_VERSION=2.2.9 \
     NVM_VERSION=v0.33.8 \
     NODE_VERSION=8.9.4 \
-    NPM_VERSION=5.6.0 
+    NPM_VERSION=5.6.0 \
+    DEVD_VERSION=0.8
 
 #openssl is at least required for python-pip
 RUN apt-get update && \
@@ -66,6 +67,10 @@ RUN curl -L https://download.docker.com/linux/static/stable/x86_64/docker-${DOCK
 #INSTALL Hub (command-line wrapper for git that makes you better at GitHub)
 RUN curl -L https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz | \
     tar -C /usr/local -zxv --exclude=README.md --exclude=LICENSE --exclude=install --strip=1
+
+#INSTALL devd (a local webserver for developers)
+RUN curl -L https://github.com/cortesi/devd/releases/download/v${DEVD_VERSION}/devd-${DEVD_VERSION}-linux64.tgz | \
+    tar -C /usr/local/bin -zxv --strip=1
 
 #SET LOCALE 
 RUN sed -i -e "s/# ${LOCALE} UTF-8/${LOCALE} UTF-8/" /etc/locale.gen && \
