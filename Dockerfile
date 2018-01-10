@@ -99,7 +99,8 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/ins
     . /home/user/.zshrc && \
     nvm install ${NODE_VERSION} && \
     npm install -g typescript && \
-    npm install -g webpack
+    npm install -g webpack && \
+    npm install -g prettier
 
 RUN mkdir -p ~/.vim/autoload ~/.vim/bundle && \
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim && \
@@ -107,7 +108,8 @@ RUN mkdir -p ~/.vim/autoload ~/.vim/bundle && \
     git clone git://github.com/tpope/vim-sensible.git ~/.vim/bundle/vim-sensible && \
     git clone https://github.com/Valloric/YouCompleteMe ~/.vim/bundle/YouCompleteMe && \
     git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree && \
-    git clone https://github.com/leafgarland/typescript-vim.git ~/.vim/bundle/typescript-vim
+    git clone https://github.com/leafgarland/typescript-vim.git ~/.vim/bundle/typescript-vim && \
+    git clone https://github.com/prettier/vim-prettier ~/.vim/bundle/vim-prettier
 
 RUN . /home/user/.zshrc && \ 
     cd /home/user/.vim/bundle/YouCompleteMe && \
