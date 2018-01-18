@@ -3,4 +3,4 @@ project_name: TsDev
 project_root: ~/ts/src
 windows:
   - editor: vim
-  - shell: zsh
+  - shell:
