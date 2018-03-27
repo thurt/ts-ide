@@ -10,7 +10,7 @@ ENV LOCALE=en_US.UTF-8 \
     HUB_VERSION=2.2.9 \
     NVM_VERSION=v0.33.8 \
     NODE_VERSION=8.9.4 \
-    NPM_VERSION=5.6.0 \
+    NPM_VERSION=5.8.0 \
     DEVD_VERSION=0.8
 
 #openssl is at least required for python-pip
@@ -101,7 +101,8 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/ins
     nvm install ${NODE_VERSION} && \
     npm install -g typescript && \
     npm install -g webpack && \
-    npm install -g prettier
+    npm install -g prettier && \
+    npm install -g npm@${NPM_VERSION}
 
 RUN mkdir -p ~/.vim/autoload ~/.vim/bundle && \
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim && \
