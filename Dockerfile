@@ -9,6 +9,7 @@ ENV LOCALE=en_US.UTF-8 \
     SCMPUFF_VERSION=0.2.1 \
     HUB_VERSION=2.2.9 \
     NVM_VERSION=v0.33.8 \
+    NVM_DIR=/home/user/ts/src/.nvm \
     NODE_VERSION=8.9.4 \
     NPM_VERSION=5.8.0 \
     DEVD_VERSION=0.8
@@ -97,6 +98,9 @@ RUN echo 'FOR CROSS-VERIFICATION, PLEASE CHECK THAT THE SHA256 RSA HASH ON STDOU
 
 #INSTALL nvm (node version manager) 
 #INSTALL node (includes npm) and typescript server (TSServer)
+#INSTALL webpack
+#INSTALL prettier
+#INSTALL specific version of npm
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh | bash && \
     . /home/user/.zshrc && \
     nvm install ${NODE_VERSION} && \
