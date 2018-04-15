@@ -1,6 +1,0 @@
-
-project_name: TsDev
-project_root: ~/ts/src
-windows:
-    - editor: vim -c ':NERDTree github.com/thurt'
-    - shell: cd github.com/thurt
