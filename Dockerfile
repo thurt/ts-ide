@@ -21,15 +21,11 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/ins
     npm install -g npm@${NPM_VERSION} && \
     #SETUP YCM with js-completer
     cd /home/user/.vim/bundle/YouCompleteMe && \
-    git submodule update --init --recursive && \
     ./install.py --js-completer
 
-COPY \
+COPY --chown=1000:1000 \
     .entrypoint.sh \
     /home/user/
-RUN \
-    sudo chown 1000:1000 \
-    /home/user/.entrypoint.sh
 
 VOLUME ["/home/user/ts/src"]
 
