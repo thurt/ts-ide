@@ -19,6 +19,9 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/ins
     npm install -g webpack && \
     npm install -g prettier && \
     npm install -g npm@${NPM_VERSION} && \
+    #INSTALL vim plugins: typescript-vim, vim-prettier
+    git clone https://github.com/leafgarland/typescript-vim.git ~/.vim/bundle/typescript-vim && \
+    git clone https://github.com/prettier/vim-prettier ~/.vim/bundle/vim-prettier && \
     #SETUP YCM with js-completer
     cd /home/user/.vim/bundle/YouCompleteMe && \
     ./install.py --js-completer
