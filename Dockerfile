@@ -4,27 +4,31 @@ ENV \
     NVM_VERSION=v0.33.8 \
     NVM_DIR=/home/user/ts/src/.nvm \
     NODE_VERSION=8.9.4 \
-    NPM_VERSION=5.8.0
+    NPM_VERSION=5.8.0 \
+    TYPESCRIPT_VERSION=2.8.3 \
+    PRETTIER_VERSION=1.12.1 \
+    WEBPACK_VERSION=4.6.0
+
 
 #INSTALL nvm (node version manager) 
-#INSTALL node (includes npm) and typescript server (TSServer)
+#INSTALL node (includes npm) 
+#INSTALL typescript server (TSServer)
 #INSTALL webpack
 #INSTALL prettier
-#INSTALL specific version of npm
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh | bash && \
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  && \
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" && \ 
-    nvm install ${NODE_VERSION} && \
-    npm install -g typescript && \
-    npm install -g webpack && \
-    npm install -g prettier && \
-    npm install -g npm@${NPM_VERSION} && \
-    #INSTALL vim plugins: typescript-vim, vim-prettier
-    git clone https://github.com/leafgarland/typescript-vim.git ~/.vim/bundle/typescript-vim && \
-    git clone https://github.com/prettier/vim-prettier ~/.vim/bundle/vim-prettier && \
+#INSTALL npm
+RUN \
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/"${NVM_VERSION}"/install.sh | bash && \
+    [ -s "$NVM_DIR/nvm.sh" ] && \
+    \. "$NVM_DIR/nvm.sh"  && \
+    [ -s "$NVM_DIR/bash_completion" ] && \
+    \. "$NVM_DIR/bash_completion" && \
+    nvm install "$NODE_VERSION" && \
+    npm install -g typescript@"$TYPESCRIPT_VERSION" && \
+    npm install -g webpack@"$WEBPACK_VERSION" && \
+    npm install -g prettier@"$PRETTIER_VERSION" && \
+    npm install -g npm@"$NPM_VERSION" && \
     #SETUP YCM with js-completer
-    cd /home/user/.vim/bundle/YouCompleteMe && \
-    ./install.py --js-completer
+    /home/user/.vim/bundle/YouCompleteMe/install.py --js-completer
 
 COPY --chown=1000:1000 \
     .entrypoint.sh \
