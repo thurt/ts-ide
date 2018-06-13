@@ -30,6 +30,14 @@ RUN \
     #SETUP YCM with js-completer
     /home/user/.vim/bundle/YouCompleteMe/install.py --js-completer
 
+#INSTALL vim plugins
+RUN \
+    # vim-javscript - provides syntax highlighting and improved indentation
+      git clone https://github.com/pangloss/vim-javascript.git ~/.vim/bundle/vim-javascript && \
+      # vim-jsx - syntax highlighting and indenting for JSX (depends on vim-javascript)
+    git clone https://github.com/mxw/vim-jsx.git ~/.vim/bundle/vim-jsx
+
+    
 COPY --chown=1000:1000 \
     .entrypoint.sh \
     /home/user/
